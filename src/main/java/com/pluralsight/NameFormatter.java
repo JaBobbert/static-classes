@@ -3,30 +3,39 @@ package com.pluralsight;
 public class NameFormatter {
 
     public static String format(String prefix, String firstName, String middleName, String lastName, String suffix){
-        return lastName + ", " + prefix +". "+ firstName +" " + middleName +", "+ suffix;
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(lastName).append(", ");
+
+        if(!prefix.isEmpty()){
+            sb.append(prefix).append(" ");
+        }
+
+        sb.append(firstName);
+
+        if(!middleName.isEmpty()){
+            sb.append(" ").append(middleName);
+        }
+        if(!suffix.isEmpty()){
+            sb.append(", ").append(suffix);
+        }
+        sb.toString();
+
+
     }
 
     public static String format(String firstName, String lastName){
-        return lastName + " " + firstName;
+        return format("", firstName, "", lastName, "");
     }
 
     public static String format(String fullName){
-        String[] parts = fullName.trim().split("\\|");
-        String firstName = parts[1];
-        String middleName = parts[2];
-        String lastName = parts[3];
-        String suffix = parts[4];
-        String prefix = parts[5];
-
-
-        if (fullName.contains(middleName) && fullName.contains(suffix)){
-            return lastName + ", " + firstName + " " + middleName + ", " + suffix;
+        String[] parts = fullName.split(", ");
+        String mainPart = parts[0];
+        if (parts.length > 1){
+            String suffix = parts[1];
         }
-        else if (fullName.contains(middleName) && fullName.contains(suffix) && fullName.contains(prefix)) {
-            return lastName + ", " + prefix + " " + firstName + " " + middleName + ", " + suffix;
+        //else{
+            String suffix = "";
         }
-
-
-
     }
 }
